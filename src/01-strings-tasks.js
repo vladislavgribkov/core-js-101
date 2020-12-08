@@ -268,10 +268,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if (value === null || value === undefined) {
-    return false;
-  }
-  return typeof value === 'string' || Object.getPrototypeOf(value) === Object.getPrototypeOf(String());
+  return typeof value === 'string' || value instanceof String;
 }
 
 
