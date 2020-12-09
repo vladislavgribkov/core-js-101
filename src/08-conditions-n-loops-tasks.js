@@ -390,8 +390,16 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let resPath = '';
+  const pathesAfterSplit = pathes.map((str) => str.split('/'));
+  const maxCountsPath = pathesAfterSplit.reduce(
+    (arr1, arr2) => (arr1.length >= arr2.length ? arr1 : arr2),
+  );
+  maxCountsPath.forEach((element, i) => {
+    if (pathesAfterSplit.every((item) => item[i] === element)) resPath = resPath.concat(`${element}/`);
+  });
+  return resPath;
 }
 
 /**
