@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* ************************************************************************************************
  *                                                                                                *
  * Plese read the following tutorial before implementing tasks:                                   *
@@ -110,32 +111,68 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  str: '',
+  element(value) {
+    const obj = Object.create(this);
+    obj.str = `${this.str}${value}`;
+    obj.i = 1;
+    this.error(obj.i);
+    return obj;
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    const obj = Object.create(this);
+    obj.str = `${this.str}#${value}`;
+    obj.i = 2;
+    this.error(obj.i);
+    return obj;
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    const obj = Object.create(this);
+    obj.str = `${this.str}.${value}`;
+    obj.i = 3;
+    this.error(obj.i);
+    return obj;
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    const obj = Object.create(this);
+    obj.str = `${this.str}[${value}]`;
+    obj.i = 4;
+    this.error(obj.i);
+    return obj;
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    const obj = Object.create(this);
+    obj.str = `${this.str}:${value}`;
+    obj.i = 5;
+    this.error(obj.i);
+    return obj;
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    const obj = Object.create(this);
+    obj.str = `${this.str}::${value}`;
+    obj.i = 6;
+    this.error(obj.i);
+    return obj;
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+    const obj = Object.create(this);
+    obj.str = `${selector1.str} ${combinator} ${selector2.str}`;
+    return obj;
+  },
+
+  stringify() {
+    return this.str;
+  },
+
+  error(count) {
+    if (this.i > count) throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    if (this.i === count && (count === 1 || count === 2 || count === 6)) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
   },
 };
 
